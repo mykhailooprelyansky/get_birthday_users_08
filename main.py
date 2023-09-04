@@ -14,18 +14,17 @@ days_name = {
 
 def get_birthdays_per_week(users):
     return_dict = {}
-    current_date = datetime.now()
+    current_date = date.today()
     date_start_week = current_date - timedelta(days=1)
     date_end_week = current_date + timedelta(days=7)
     if len(users) == 0:
         return return_dict
     for user in users:
         date_of_birthday = user['birthday']
-        month_birthday = date_of_birthday.month
-        day_birthday = date_of_birthday.day
-        birthday_in_current_year = datetime(year=current_date.year, month=month_birthday, day=day_birthday)
-        if month_birthday == 1:
-            birthday_in_current_year = datetime(year=current_date.year + 1, month=month_birthday, day=day_birthday)
+        birthday_in_current_year = date(year=current_date.year, month=date_of_birthday.month, day=date_of_birthday.day)
+        if date_of_birthday.month == 1:
+            birthday_in_current_year = date(year=current_date.year + 1,
+                                            month=date_of_birthday.month, day=date_of_birthday.day)
         if date_start_week < birthday_in_current_year < date_end_week:
             weekday_birthday = birthday_in_current_year.weekday()
             if weekday_birthday == 5 or weekday_birthday == 6:
@@ -44,7 +43,6 @@ def get_birthdays_per_week(users):
 if __name__ == "__main__":
     users = [
         {"name": "Jan Koum", "birthday": datetime(1976, 1, 1).date()},
-
     ]
 
     result = get_birthdays_per_week(users)
