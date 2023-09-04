@@ -21,10 +21,11 @@ def get_birthdays_per_week(users):
         return return_dict
     for user in users:
         date_of_birthday = user['birthday']
-        birthday_in_current_year = date(year=current_date.year, month=date_of_birthday.month, day=date_of_birthday.day)
+        birthday_in_current_year = datetime(year=current_date.year,
+                                            month=date_of_birthday.month, day=date_of_birthday.day).date()
         if date_of_birthday.month == 1:
-            birthday_in_current_year = date(year=current_date.year + 1,
-                                            month=date_of_birthday.month, day=date_of_birthday.day)
+            birthday_in_current_year = datetime(year=current_date.year + 1,
+                                            month=date_of_birthday.month, day=date_of_birthday.day).date()
         if date_start_week < birthday_in_current_year < date_end_week:
             weekday_birthday = birthday_in_current_year.weekday()
             if weekday_birthday == 5 or weekday_birthday == 6:
